@@ -87,7 +87,7 @@ describe('Button', () => {
     })
   })
 
-  describe('when an icon is specified', () => {
+  describe('when an icon is specified with text', () => {
     beforeEach(() => {
       wrapper = render(<ButtonE icon={<IconBrightnessLow />}>Click me</ButtonE>)
     })
@@ -100,6 +100,20 @@ describe('Button', () => {
       expect(wrapper.queryByTestId('button-icon')).toHaveAttribute(
         'aria-hidden',
         'true'
+      )
+    })
+  })
+
+  describe('when an icon is specified without text', () => {
+    let consoleWarnSpy: jest.SpyInstance
+    beforeEach(() => {
+      consoleWarnSpy = jest.spyOn(global.console, 'warn')
+      wrapper = render(<ButtonE icon={<IconBrightnessLow />} />)
+    })
+
+    it('should render an icon', () => {
+      expect(consoleWarnSpy).toHaveBeenCalledWith(
+        'WARN - RNDS - An icon-only button should have the title attribute set'
       )
     })
   })
