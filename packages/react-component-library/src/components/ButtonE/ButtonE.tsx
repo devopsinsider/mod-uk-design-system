@@ -1,3 +1,4 @@
+import { IconLoader } from '@defencedigital/icon-library'
 import React, { FormEvent } from 'react'
 
 import {
@@ -8,8 +9,9 @@ import {
 import { ComponentWithClass } from '../../common/ComponentWithClass'
 import logger from '../../utils/logger'
 import { StyledButton } from './partials/StyledButton'
-import { StyledIcon } from './partials/StyledIcon'
+import { StyledIconWrapper } from './partials/StyledIconWrapper'
 import { StyledText } from './partials/StyledText'
+import { StyledIconLoaderWrapper } from './partials/StyledIconLoader'
 
 export type ButtonESizeType =
   | typeof BUTTON_E_SIZE.SMALL
@@ -63,6 +65,12 @@ interface DisableableButtonEProps extends BaseButtonEProps {
    */
   isDisabled?: boolean
   /**
+   * Whether an operation is in progress and the button temporarily can't be
+   * used. If set, the button will be disabled and a loading icon displayed in
+   * place of the button text.
+   */
+  isLoading?: boolean
+  /**
    * Type of component to display (style varies accordingly).
    */
   variant?:
@@ -73,6 +81,7 @@ interface DisableableButtonEProps extends BaseButtonEProps {
 
 interface NonDisableableButtonEProps extends BaseButtonEProps {
   isDisabled?: false
+  isLoading?: false
   variant: typeof BUTTON_E_VARIANT.TERTIARY
 }
 
@@ -82,6 +91,7 @@ export const ButtonE: React.FC<ButtonEProps> = ({
   children,
   className,
   isDisabled,
+  isLoading,
   icon,
   iconPosition = BUTTON_E_ICON_POSITION.RIGHT,
   onClick,
@@ -102,8 +112,9 @@ export const ButtonE: React.FC<ButtonEProps> = ({
       $size={size}
       $iconPosition={iconPosition}
       data-testid="button"
-      disabled={isDisabled}
+      disabled={isDisabled || isLoading}
       type={type}
+      aria-label={children}
       title={title}
       onClick={(e) => {
         e.currentTarget.blur()
@@ -114,17 +125,23 @@ export const ButtonE: React.FC<ButtonEProps> = ({
       }}
       {...rest}
     >
-      <StyledText>{children}</StyledText>
+      {isLoading && (
+        <StyledIconLoaderWrapper data-testid="loading-icon" aria-hidden>
+          <IconLoader size={size === BUTTON_E_SIZE.FORMS ? 26 : 21} />
+        </StyledIconLoaderWrapper>
+      )}
+      <StyledText $isLoading={isLoading}>{children}</StyledText>
       {icon && (
-        <StyledIcon
-          $iconPosition={iconPosition}
+        <StyledIconWrapper
           $buttonHasText={Boolean(children)}
           $buttonSize={size}
+          $iconPosition={iconPosition}
+          $isLoading={isLoading}
           aria-hidden
           data-testid="button-icon"
         >
           {icon}
-        </StyledIcon>
+        </StyledIconWrapper>
       )}
     </StyledButton>
   )
