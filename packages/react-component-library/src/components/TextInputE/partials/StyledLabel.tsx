@@ -6,16 +6,32 @@ import {
   StyledLabelProps,
 } from '../../../styled-components/partials/StyledLabel'
 
-function getYPosition() {
+function getYPosition($isCondensed: boolean) {
+  if ($isCondensed) {
+    return isIE11() ? '8px' : '6px'
+  }
+
   return isIE11() ? '15px' : '13px'
 }
 
 export const StyledLabel = styled(StyledLabelBase)<StyledLabelProps>`
-  transform: translate(11px, ${getYPosition()}) scale(1);
+  ${({ $isCondensed }) => css`
+    transform: translate(11px, ${getYPosition($isCondensed)}) scale(1);
+  `}
 
-  ${({ $hasFocus, $hasContent }) =>
-    ($hasFocus || $hasContent) &&
-    css`
+  ${({ $hasContent, $hasFocus, $isCondensed }) => {
+    if (!$hasContent && !$hasFocus) {
+      return {}
+    }
+
+    if ($isCondensed) {
+      return css`
+        display: none;
+      `
+    }
+
+    return css`
       transform: translate(11px, 8px) scale(0.75);
-    `}
+    `
+  }}
 `

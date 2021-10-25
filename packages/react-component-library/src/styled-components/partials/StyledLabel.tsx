@@ -6,6 +6,7 @@ const { color, fontSize } = selectors
 export interface StyledLabelProps {
   $hasContent: boolean
   $hasFocus: boolean
+  $isCondensed?: boolean
 }
 
 export const StyledLabel = styled.label<StyledLabelProps>`

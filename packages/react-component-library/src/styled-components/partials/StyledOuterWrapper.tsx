@@ -9,6 +9,7 @@ const DEFAULT_BORDER = css`
 
 export interface StyledOuterWrapperProps {
   $hasFocus?: boolean
+  $isCondensed?: boolean
   $isDisabled?: boolean
   $isInvalid?: boolean
 }
@@ -65,13 +66,19 @@ function getBackgroundColor({ $isDisabled }: StyledOuterWrapperProps) {
   `
 }
 
+function getBorderRadius({ $isCondensed }: StyledOuterWrapperProps) {
+  return css`
+    border-radius: ${$isCondensed ? '10px' : '15px'};
+  `
+}
+
 export const StyledOuterWrapper = styled.div<StyledOuterWrapperProps>`
   ${(props) => {
     return css`
       ${getBackgroundColor(props)};
       ${getBorder(props) || DEFAULT_BORDER};
+      ${getBorderRadius(props)};
       ${getMargin(props)};
-      border-radius: 15px;
       box-shadow: 0 0 0 3px ${getBoxShadowColor(props)};
       transition: border-color 350ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
         box-shadow 350ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;

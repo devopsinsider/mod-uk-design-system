@@ -16,23 +16,36 @@ function removeAutoFillBackground() {
   `
 }
 
-export const StyledInput = styled.input`
+interface StyledInputProps {
+  $hasLabel: boolean
+  $isCondensed?: boolean
+}
+
+export const StyledInput = styled.input<StyledInputProps>`
   display: block;
   box-sizing: border-box;
   width: 100%;
   margin: 0;
   border: 0;
   background: none;
-  padding: 22px 12px 6px 11px;
+
+  padding: ${({ $hasLabel, $isCondensed }) => {
+    if ($isCondensed || !$hasLabel) {
+      return '6px 12px 6px 11px'
+    }
+
+    return '22px 12px 6px 11px'
+  }};
 
   -webkit-tap-highlight-color: transparent;
 
   ${removeAutoFillBackground()}
 
   color: ${color('neutral', '600')};
-  font-size: ${fontSize('m')};
+  font-size: ${({ $isCondensed }) =>
+    $isCondensed ? fontSize('base') : fontSize('m')};
 
-  height: 44px;
+  height: ${({ $isCondensed }) => ($isCondensed ? '31px' : '44px')};
 
   &:focus {
     outline: 0;
