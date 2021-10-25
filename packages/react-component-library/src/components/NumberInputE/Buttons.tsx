@@ -1,10 +1,11 @@
 import React from 'react'
 
-import { EndAdornmentButton } from './EndAdornmentButton'
-import { END_ADORNMENT_TYPE } from './constants'
-import { StyledNumberInputControls } from './partials/StyledNumberInputControls'
+import { Button } from './Button'
+import { NUMBER_INPUT_BUTTON_TYPE } from './constants'
+import { StyledButtons } from './partials/StyledButtons'
+import { StyledDivider } from './partials/StyledDivider'
 
-export interface EndAdornmentProps {
+export interface ButtonsProps {
   isCondensed: boolean
   isDisabled: boolean
   max?: number
@@ -18,7 +19,7 @@ export interface EndAdornmentProps {
   value: number
 }
 
-export const EndAdornment: React.FC<EndAdornmentProps> = ({
+export const Buttons: React.FC<ButtonsProps> = ({
   isCondensed,
   isDisabled,
   onClick,
@@ -36,21 +37,22 @@ export const EndAdornment: React.FC<EndAdornmentProps> = ({
   }
 
   return (
-    <StyledNumberInputControls>
-      <EndAdornmentButton
-        isCondensed={isCondensed}
-        isDisabled={isDisabled}
-        onClick={onButtonClick(() => (value || 0) + step)}
-        type={END_ADORNMENT_TYPE.INCREASE}
-      />
-      <EndAdornmentButton
+    <StyledButtons $isDisabled={isDisabled}>
+      <Button
         isCondensed={isCondensed}
         isDisabled={isDisabled}
         onClick={onButtonClick(() => (value || 0) - step)}
-        type={END_ADORNMENT_TYPE.DECREASE}
+        type={NUMBER_INPUT_BUTTON_TYPE.DECREASE}
       />
-    </StyledNumberInputControls>
+      <StyledDivider $isCondensed={isCondensed} />
+      <Button
+        isCondensed={isCondensed}
+        isDisabled={isDisabled}
+        onClick={onButtonClick(() => (value || 0) + step)}
+        type={NUMBER_INPUT_BUTTON_TYPE.INCREASE}
+      />
+    </StyledButtons>
   )
 }
 
-EndAdornment.displayName = 'EndAdornment'
+Buttons.displayName = 'Buttons'

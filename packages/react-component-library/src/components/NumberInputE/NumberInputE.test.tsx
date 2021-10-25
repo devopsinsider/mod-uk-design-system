@@ -10,30 +10,17 @@ import userEvent from '@testing-library/user-event'
 
 import { Button } from '../..'
 import { NumberInputE } from '.'
-import { UNIT_POSITION } from './constants'
 
-describe('NumberInput', () => {
+describe('NumberInputE', () => {
   let wrapper: RenderResult
   let onChangeSpy: (event: any) => void
 
-  function assertInputValue(expectedValue: string, expectedUnit?: string) {
+  function assertInputValue(expectedValue: string) {
     it('should set the input value', () => {
       expect(wrapper.getByTestId('number-input-input')).toHaveValue(
         expectedValue
       )
     })
-
-    if (expectedUnit) {
-      it('should display the unit', () => {
-        expect(wrapper.getByTestId('number-input-unit')).toHaveTextContent(
-          expectedUnit
-        )
-      })
-    } else {
-      it('should not show the unit', () => {
-        expect(wrapper.queryAllByTestId('number-input-unit')).toHaveLength(0)
-      })
-    }
   }
 
   function assertAriaValueAttributes({
@@ -65,7 +52,7 @@ describe('NumberInput', () => {
       }
 
       expect(container).toHaveAttribute('aria-valuenow', now.toString())
-      expect(container).toHaveAttribute('aria-valuetext', text)
+      expect(container).toHaveAttribute('aria-valuetext', text.toString())
     })
   }
 
@@ -118,7 +105,7 @@ describe('NumberInput', () => {
       )
     })
 
-    assertAriaValueAttributes({ min: null, max: null, now: 0, text: '0' })
+    assertAriaValueAttributes({ min: null, max: null, now: 0, text: 'Not set' })
 
     it('should not display a start adornment', () => {
       expect(
@@ -130,7 +117,7 @@ describe('NumberInput', () => {
       expect(wrapper.queryAllByTestId('number-input-label')).toHaveLength(0)
     })
 
-    assertInputValue('0')
+    assertInputValue('')
 
     it('should set the `aria-labelledby` attribute', () => {
       const numberInputId = wrapper
@@ -404,24 +391,6 @@ describe('NumberInput', () => {
     })
   })
 
-  describe('when the start adornment is specified', () => {
-    beforeEach(() => {
-      wrapper = render(
-        <NumberInputE
-          name="number-input"
-          startAdornment="Example"
-          onChange={onChangeSpy}
-        />
-      )
-    })
-
-    it('should render the text', () => {
-      expect(
-        wrapper.getByTestId('number-input-start-adornment')
-      ).toHaveTextContent('Example')
-    })
-  })
-
   describe('when a CSS class name is specified', () => {
     beforeEach(() => {
       wrapper = render(
@@ -495,126 +464,45 @@ describe('NumberInput', () => {
     })
   })
 
-  describe('when there is a unit', () => {
+  describe('when there is a prefix', () => {
     beforeEach(() => {
       wrapper = render(
         <NumberInputE
           name="number-input"
           onChange={onChangeSpy}
           value={1000}
-          unit="m"
+          prefix="&pound;"
         />
       )
     })
 
-    assertInputValue('1000', 'm')
-    assertAriaValueAttributes({
-      min: null,
-      max: null,
-      now: 1000,
-      text: '1000 m',
-    })
-
-    describe('and the increase button is clicked', () => {
-      beforeEach(() => {
-        wrapper.getByTestId('number-input-increase').click()
-      })
-
-      assertInputValue('1001', 'm')
-      assertAriaValueAttributes({
-        min: null,
-        max: null,
-        now: 1001,
-        text: '1001 m',
-      })
-      assertOnChangeCall(1001)
-    })
-
-    describe('and the decrease button is clicked', () => {
-      beforeEach(() => {
-        wrapper.getByTestId('number-input-decrease').click()
-      })
-
-      assertInputValue('999', 'm')
-      assertAriaValueAttributes({
-        min: null,
-        max: null,
-        now: 999,
-        text: '999 m',
-      })
-      assertOnChangeCall(999)
-    })
-  })
-
-  describe('when there is a unit before', () => {
-    beforeEach(() => {
-      wrapper = render(
-        <NumberInputE
-          name="number-input"
-          onChange={onChangeSpy}
-          value={1000}
-          unit="&pound;"
-          unitPosition={UNIT_POSITION.BEFORE}
-        />
-      )
-    })
-
-    assertInputValue('1000', '£')
+    assertInputValue('1000')
     assertAriaValueAttributes({
       min: null,
       max: null,
       now: 1000,
       text: '£ 1000',
     })
+  })
 
-    describe('and the increase button is clicked', () => {
-      beforeEach(() => {
-        wrapper.getByTestId('number-input-increase').click()
-      })
-
-      assertInputValue('1001', '£')
-      assertAriaValueAttributes({
-        min: null,
-        max: null,
-        now: 1001,
-        text: '£ 1001',
-      })
-      assertOnChangeCall(1001)
+  describe('when there is a suffix', () => {
+    beforeEach(() => {
+      wrapper = render(
+        <NumberInputE
+          name="number-input"
+          onChange={onChangeSpy}
+          value={1000}
+          suffix="m"
+        />
+      )
     })
 
-    describe('and the decrease button is clicked', () => {
-      beforeEach(() => {
-        wrapper.getByTestId('number-input-decrease').click()
-      })
-
-      assertInputValue('999', '£')
-      assertAriaValueAttributes({
-        min: null,
-        max: null,
-        now: 999,
-        text: '£ 999',
-      })
-      assertOnChangeCall(999)
-    })
-
-    describe('and the user focuses and then blurs the input', () => {
-      beforeEach(() => {
-        const input = wrapper.getByTestId(
-          'number-input-input'
-        ) as HTMLInputElement
-
-        fireEvent.focus(input)
-        fireEvent.blur(input)
-      })
-
-      assertInputValue('1000', '£')
-      assertAriaValueAttributes({
-        min: null,
-        max: null,
-        now: 1000,
-        text: '£ 1000',
-      })
-      assertOnChangeCall(1000)
+    assertInputValue('1000')
+    assertAriaValueAttributes({
+      min: null,
+      max: null,
+      now: 1000,
+      text: '1000 m',
     })
   })
 
@@ -662,6 +550,57 @@ describe('NumberInput', () => {
         'data-arbitrary',
         'arbitrary'
       )
+    })
+  })
+
+  describe('when condensed', () => {
+    beforeEach(() => {
+      wrapper = render(
+        <NumberInputE
+          isCondensed
+          label="Label"
+          name="number-input"
+          onChange={onChangeSpy}
+        />
+      )
+    })
+
+    it('should display the label', () => {
+      expect(wrapper.getByTestId('number-input-label').textContent).toEqual(
+        'Label'
+      )
+    })
+
+    describe('and the increase button is clicked', () => {
+      beforeEach(() => {
+        wrapper.getByTestId('number-input-increase').click()
+      })
+
+      it('should hide the label', () => {
+        expect(wrapper.getByTestId('number-input-label')).not.toBeVisible()
+      })
+    })
+
+    describe('when', () => {
+      beforeEach(() => {
+        wrapper.getByTestId('number-input-input').focus()
+      })
+
+      it('should hide the label', () => {
+        expect(wrapper.getByTestId('number-input-label')).not.toBeVisible()
+      })
+
+      describe('and the number input loses focus', () => {
+        beforeEach(() => {
+          wrapper.getByTestId('number-input-increase').focus()
+        })
+
+        it('should display the label', () => {
+          expect(wrapper.getByTestId('number-input-label').textContent).toEqual(
+            'Label'
+          )
+        })
+      })
     })
   })
 })
