@@ -104,20 +104,6 @@ describe('Button', () => {
     })
   })
 
-  describe('when an icon is specified without text', () => {
-    let consoleWarnSpy: jest.SpyInstance
-    beforeEach(() => {
-      consoleWarnSpy = jest.spyOn(global.console, 'warn')
-      wrapper = render(<ButtonE icon={<IconBrightnessLow />} />)
-    })
-
-    it('should render an icon', () => {
-      expect(consoleWarnSpy).toHaveBeenCalledWith(
-        'WARN - RNDS - An icon-only button should have the title attribute set'
-      )
-    })
-  })
-
   describe('when the button is loading', () => {
     beforeEach(() => {
       wrapper = render(

@@ -7,7 +7,6 @@ import {
   BUTTON_E_ICON_POSITION,
 } from './constants'
 import { ComponentWithClass } from '../../common/ComponentWithClass'
-import logger from '../../utils/logger'
 import { StyledButton } from './partials/StyledButton'
 import { StyledIconWrapper } from './partials/StyledIconWrapper'
 import { StyledText } from './partials/StyledText'
@@ -27,15 +26,7 @@ export type ButtonEIconPositionType =
   | typeof BUTTON_E_ICON_POSITION.LEFT
   | typeof BUTTON_E_ICON_POSITION.RIGHT
 
-interface BaseButtonEProps extends ComponentWithClass {
-  /**
-   * Text to display within the component.
-   */
-  children?: string
-  /**
-   * Optional icon to display beside the component text.
-   */
-  icon?: React.ReactNode
+interface ButtonEBaseProps extends Omit<ComponentWithClass, 'children'> {
   /**
    * Position of the optional icon.
    */
@@ -49,23 +40,18 @@ interface BaseButtonEProps extends ComponentWithClass {
    */
   size?: ButtonESizeType
   /**
-   * Optional value for the HTML title attribute. Should be set for
-   * icon-only buttons to make them accessible.
-   */
-  title?: string
-  /**
    * HTML type of the component (forms should use the `submit` type).
    */
   type?: 'button' | 'submit'
 }
 
-interface DisableableButtonEProps extends BaseButtonEProps {
+export interface ButtonEDisableableWithTextProps extends ButtonEBaseProps {
   /**
    * Toggles whether the component is disabled or not (preventing user
    * interaction).
    *
-   * For tertiary buttons, this flag must be false or unset as tertiary buttons
-   * don't have a disabled state.
+   * (Note that this flag isn't supported for tertiary buttons as tertiary
+   * buttons don't have a disabled state.)
    */
   isDisabled?: boolean
   /**
@@ -73,8 +59,8 @@ interface DisableableButtonEProps extends BaseButtonEProps {
    * used. If set, the button will be disabled and a loading icon displayed in
    * place of the button text.
    *
-   * For tertiary buttons, this flag must be false or unset as tertiary buttons
-   * don't have a loading state.
+   * (Note that this flag isn't supported for tertiary buttons as tertiary
+   * buttons don't have a disabled state.)
    */
   isLoading?: boolean
   /**
@@ -84,15 +70,56 @@ interface DisableableButtonEProps extends BaseButtonEProps {
     | typeof BUTTON_E_VARIANT.PRIMARY
     | typeof BUTTON_E_VARIANT.SECONDARY
     | typeof BUTTON_E_VARIANT.DANGER
+  /**
+   * Text to display within the component.
+   */
+  children: string
+  /**
+   * Optional icon to display beside the component text.
+   */
+  icon?: React.ReactNode
+  /**
+   * Value for the HTML title attribute. Should be set for
+   * icon-only buttons to make them accessible.
+   */
+  title?: string
 }
 
-interface NonDisableableButtonEProps extends BaseButtonEProps {
-  isDisabled?: false
-  isLoading?: false
+export interface ButtonEDisableableIconOnlyProps extends ButtonEBaseProps {
+  isDisabled?: boolean
+  isLoading?: boolean
+  variant?:
+    | typeof BUTTON_E_VARIANT.PRIMARY
+    | typeof BUTTON_E_VARIANT.SECONDARY
+    | typeof BUTTON_E_VARIANT.DANGER
+  children?: never
+  icon: React.ReactNode
+  title: string
+}
+
+export interface ButtonENonDisableableWithTextProps extends ButtonEBaseProps {
+  isDisabled?: never
+  isLoading?: never
   variant: typeof BUTTON_E_VARIANT.TERTIARY
+  children: string
+  icon?: React.ReactNode
+  title?: string
 }
 
-export type ButtonEProps = DisableableButtonEProps | NonDisableableButtonEProps
+export interface ButtonENonDisableableIconOnlyProps extends ButtonEBaseProps {
+  isDisabled?: never
+  isLoading?: never
+  variant: typeof BUTTON_E_VARIANT.TERTIARY
+  children?: never
+  icon: React.ReactNode
+  title: string
+}
+
+export type ButtonEProps =
+  | ButtonEDisableableWithTextProps
+  | ButtonEDisableableIconOnlyProps
+  | ButtonENonDisableableWithTextProps
+  | ButtonENonDisableableIconOnlyProps
 
 export const ButtonE: React.FC<ButtonEProps> = ({
   children,
@@ -108,10 +135,6 @@ export const ButtonE: React.FC<ButtonEProps> = ({
   variant = BUTTON_E_VARIANT.PRIMARY,
   ...rest
 }) => {
-  if (!children && !title && icon) {
-    logger.warn('An icon-only button should have the title attribute set')
-  }
-
   return (
     <StyledButton
       className={className}
