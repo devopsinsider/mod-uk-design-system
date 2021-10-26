@@ -61,13 +61,20 @@ interface BaseButtonEProps extends ComponentWithClass {
 
 interface DisableableButtonEProps extends BaseButtonEProps {
   /**
-   * Toggles whether the component is disabled or not (preventing user interaction).
+   * Toggles whether the component is disabled or not (preventing user
+   * interaction).
+   *
+   * For tertiary buttons, this flag must be false or unset as tertiary buttons
+   * don't have a disabled state.
    */
   isDisabled?: boolean
   /**
    * Whether an operation is in progress and the button temporarily can't be
    * used. If set, the button will be disabled and a loading icon displayed in
    * place of the button text.
+   *
+   * For tertiary buttons, this flag must be false or unset as tertiary buttons
+   * don't have a loading state.
    */
   isLoading?: boolean
   /**
