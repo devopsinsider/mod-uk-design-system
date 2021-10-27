@@ -102,7 +102,7 @@ export const StyledButton = styled.button<StyledButtonProps>`
         box-shadow: 0 0 0 3px ${color('action', '100')};
       }
 
-      &[disabled] {
+      &:disabled {
         &,
         &:hover,
         &:active,
@@ -151,7 +151,7 @@ export const StyledButton = styled.button<StyledButtonProps>`
         box-shadow: 0 0 0 3px ${color('danger', '100')};
       }
 
-      &[disabled] {
+      &:disabled {
         &,
         &:hover,
         &:active,
