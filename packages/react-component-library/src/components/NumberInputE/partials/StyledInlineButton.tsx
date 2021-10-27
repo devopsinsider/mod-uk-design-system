@@ -1,8 +1,10 @@
 import styled, { css } from 'styled-components'
 import { selectors } from '@defencedigital/design-tokens'
 
+import { COMPONENT_SIZE, ComponentSizeType } from '../../Forms'
+
 export interface StyledInlineButtonProps {
-  $isCondensed: boolean
+  $size: ComponentSizeType
 }
 
 const { color } = selectors
@@ -39,8 +41,8 @@ export const StyledInlineButton = styled.button<StyledInlineButtonProps>`
     width: 16px;
   }
 
-  ${({ $isCondensed }) =>
-    $isCondensed &&
+  ${({ $size }) =>
+    $size === COMPONENT_SIZE.SMALL &&
     css`
       height: 20px;
       width: 20px;

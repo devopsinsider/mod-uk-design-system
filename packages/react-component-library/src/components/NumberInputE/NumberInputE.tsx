@@ -3,6 +3,7 @@ import { isFinite, isNil } from 'lodash'
 import { v4 as uuidv4 } from 'uuid'
 
 import { Buttons } from './Buttons'
+import { COMPONENT_SIZE, ComponentSizeType } from '../Forms'
 import { getId, hasClass } from '../../helpers'
 import { Input } from './Input'
 import { InputValidationProps } from '../../common/InputValidationProps'
@@ -32,10 +33,6 @@ interface NumberInputBaseProps
    * Optional HTML `id` attribute to apply to the internal input.
    */
   id?: string
-  /**
-   * Toggles whether or not to render a reduced height version of the component.
-   */
-  isCondensed?: boolean
   /**
    * Toggles whether the component is disabled or not (preventing user interaction).
    */
@@ -68,6 +65,10 @@ interface NumberInputBaseProps
    * Optional placeholder text to display within the component.
    */
   placeholder?: string
+  /**
+   * Size of the component.
+   */
+  size?: ComponentSizeType
   /**
    * Stepped increment amount by which to increase/decrese component value.
    */
@@ -148,7 +149,6 @@ export const NumberInputE: React.FC<NumberInputProps> = ({
   footnote,
   icon,
   id = uuidv4(),
-  isCondensed,
   isDisabled = false,
   isInvalid,
   isValid,
@@ -160,6 +160,7 @@ export const NumberInputE: React.FC<NumberInputProps> = ({
   onChange,
   placeholder = '',
   prefix,
+  size = COMPONENT_SIZE.FORMS,
   step = 1,
   suffix,
   value,
@@ -199,9 +200,9 @@ export const NumberInputE: React.FC<NumberInputProps> = ({
     >
       <StyledOuterWrapper
         $hasFocus={hasFocus}
-        $isCondensed
         $isDisabled={isDisabled}
         $isInvalid={isInvalid || hasClass(className, 'is-invalid')}
+        $size={size}
       >
         {icon && (
           <StyledIcon data-testid="number-input-icon">{icon}</StyledIcon>
@@ -212,7 +213,7 @@ export const NumberInputE: React.FC<NumberInputProps> = ({
             <StyledPrefix data-testid="number-input-prefix">
               {prefix}
             </StyledPrefix>
-            <StyledDivider $isCondensed={isCondensed} />
+            <StyledDivider $size={size} />
           </>
         )}
 
@@ -221,7 +222,6 @@ export const NumberInputE: React.FC<NumberInputProps> = ({
           hasFocus={hasFocus}
           id={id}
           isDisabled={isDisabled}
-          isCondensed={isCondensed}
           isValid={isValid || hasClass(className, 'is-valid')}
           isInvalid={isInvalid || hasClass(className, 'is-invalid')}
           label={label}
@@ -238,13 +238,14 @@ export const NumberInputE: React.FC<NumberInputProps> = ({
           }}
           onFocus={onLocalFocus}
           placeholder={placeholder}
+          size={size}
           value={committedValue}
           {...rest}
         />
 
         {suffix && (
           <>
-            <StyledDivider $isCondensed={isCondensed} />
+            <StyledDivider $size={size} />
             <StyledSuffix data-testid="number-input-suffix">
               {suffix}
             </StyledSuffix>
@@ -252,7 +253,6 @@ export const NumberInputE: React.FC<NumberInputProps> = ({
         )}
 
         <Buttons
-          isCondensed={isCondensed}
           isDisabled={isDisabled}
           max={max}
           min={min}
@@ -260,6 +260,7 @@ export const NumberInputE: React.FC<NumberInputProps> = ({
           onClick={(e, newValue) => {
             setCommittedValueWithinRange(newValue)
           }}
+          size={size}
           step={step}
           value={committedValue}
         />

@@ -1,6 +1,7 @@
 import React from 'react'
 import { isFinite, isNil } from 'lodash'
 
+import { ComponentSizeType } from '../Forms'
 import { InputValidationProps } from '../../common/InputValidationProps'
 import { StyledInput } from '../TextInputE/partials/StyledInput'
 import { StyledInputWrapper } from './partials/StyledInputWrapper'
@@ -10,13 +11,13 @@ export interface InputProps extends InputValidationProps {
   hasFocus: boolean
   isDisabled?: boolean
   id?: string
-  isCondensed: boolean
   label?: string
   name: string
   onBlur: (event: React.FormEvent<HTMLInputElement>) => void
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void
   onFocus: (event: React.FormEvent<HTMLInputElement>) => void
   placeholder?: string
+  size: ComponentSizeType
   value?: number
 }
 
@@ -24,9 +25,9 @@ export const Input: React.FC<InputProps> = ({
   hasFocus,
   isDisabled,
   id,
-  isCondensed,
   label,
   placeholder = '',
+  size,
   value,
   ...rest
 }) => {
@@ -38,7 +39,7 @@ export const Input: React.FC<InputProps> = ({
         <StyledLabel
           $hasContent={!isNil(value)}
           $hasFocus={hasFocus}
-          $isCondensed={isCondensed}
+          $size={size as 'small' | 'forms'}
           htmlFor={id}
           data-testid="number-input-label"
         >
@@ -47,7 +48,7 @@ export const Input: React.FC<InputProps> = ({
       )}
       <StyledInput
         $hasLabel={hasLabel}
-        $isCondensed={isCondensed}
+        $size={size}
         data-testid="number-input-input"
         disabled={isDisabled}
         id={id}

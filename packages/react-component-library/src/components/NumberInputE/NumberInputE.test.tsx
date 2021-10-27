@@ -8,7 +8,7 @@ import {
 } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 
-import { Button } from '../..'
+import { Button, COMPONENT_SIZE } from '../..'
 import { NumberInputE } from '.'
 
 describe('NumberInputE', () => {
@@ -553,14 +553,14 @@ describe('NumberInputE', () => {
     })
   })
 
-  describe('when condensed', () => {
+  describe('when small', () => {
     beforeEach(() => {
       wrapper = render(
         <NumberInputE
-          isCondensed
           label="Label"
           name="number-input"
           onChange={onChangeSpy}
+          size={COMPONENT_SIZE.SMALL}
         />
       )
     })

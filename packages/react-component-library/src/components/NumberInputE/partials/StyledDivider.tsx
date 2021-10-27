@@ -1,10 +1,12 @@
 import styled, { css } from 'styled-components'
 import { selectors } from '@defencedigital/design-tokens'
 
+import { COMPONENT_SIZE, ComponentSizeType } from '../../Forms'
+
 const { color } = selectors
 
 interface StyledDividerProps {
-  $isCondensed?: boolean
+  $size: ComponentSizeType
 }
 
 export const StyledDivider = styled.div<StyledDividerProps>`
@@ -13,8 +15,8 @@ export const StyledDivider = styled.div<StyledDividerProps>`
   border-left: 1px solid ${color('neutral', '200')};
   height: 24px;
 
-  ${({ $isCondensed }) =>
-    $isCondensed &&
+  ${({ $size }) =>
+    $size === COMPONENT_SIZE.SMALL &&
     css`
       top: 5px;
       height: 21px;

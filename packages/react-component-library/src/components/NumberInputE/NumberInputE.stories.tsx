@@ -2,6 +2,7 @@ import React from 'react'
 import { Story, Meta } from '@storybook/react/types-6-0'
 import { IconBrightnessHigh } from '@defencedigital/icon-library'
 
+import { COMPONENT_SIZE } from '../Forms'
 import {
   NumberInputE,
   NumberInputProps,
@@ -27,11 +28,15 @@ Default.args = {
   name: 'number-input-default',
 }
 
-export const Condensed: Story<NumberInputProps> = (props) => (
-  <NumberInputE {...props} isCondensed name="number-input-condensed" />
+export const Small: Story<NumberInputProps> = (props) => (
+  <NumberInputE
+    {...props}
+    name="number-input-small"
+    size={COMPONENT_SIZE.SMALL}
+  />
 )
 
-Condensed.storyName = 'Condensed'
+Small.storyName = 'Small'
 
 export const Disabled: Story<NumberInputProps> = (props) => (
   <NumberInputE {...props} isDisabled name="number-input-disabled" />
