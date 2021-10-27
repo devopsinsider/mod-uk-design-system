@@ -15,6 +15,10 @@ export interface SwitchOptionProps extends ComponentWithClass {
    */
   value: string
   /**
+   * Denotes whether this option is disabled or not.
+   */
+  isDisabled?: boolean
+  /**
    * Name attribute associated of the Switch.
    * @private
    */
@@ -39,6 +43,7 @@ export interface SwitchOptionProps extends ComponentWithClass {
 export const SwitchEOption: React.FC<SwitchOptionProps> = ({
   label,
   value,
+  isDisabled,
   name,
   id,
   isActive,
@@ -49,6 +54,7 @@ export const SwitchEOption: React.FC<SwitchOptionProps> = ({
       key={getKey('switch-option', label)}
       htmlFor={`${id}-${label}`}
       $isActive={isActive}
+      $isDisabled={isDisabled}
       aria-current={isActive}
       data-testid="switch-option"
     >
@@ -58,7 +64,8 @@ export const SwitchEOption: React.FC<SwitchOptionProps> = ({
         id={`${id}-${label}`}
         name={name || id}
         value={value}
-        onClick={onChange}
+        onChange={onChange}
+        disabled={isDisabled}
         data-testid="switch-input"
       />
     </StyledSwitchOption>

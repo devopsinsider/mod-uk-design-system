@@ -1,8 +1,11 @@
 import React from 'react'
 import '@testing-library/jest-dom/extend-expect'
 import { render, RenderResult } from '@testing-library/react'
+import { selectors } from '@defencedigital/design-tokens'
 
 import { SwitchE, SwitchEOption } from '.'
+
+const { color } = selectors
 
 describe('SwitchE', () => {
   let wrapper: RenderResult
@@ -62,7 +65,7 @@ describe('SwitchE', () => {
     it('should set the value', () => {
       expect(wrapper.getByText('Option 3')).toHaveStyleRule(
         'background-color',
-        '#3e5667'
+        color('action', '600')
       )
     })
 
@@ -74,7 +77,7 @@ describe('SwitchE', () => {
       it('should set the value', () => {
         expect(wrapper.getByText('Option 1')).toHaveStyleRule(
           'background-color',
-          '#3e5667'
+          color('action', '600')
         )
       })
 
@@ -86,8 +89,6 @@ describe('SwitchE', () => {
 
   describe('when minimal props are specified', () => {
     beforeEach(() => {
-      onChangeSpy = jest.fn()
-
       wrapper = render(
         <SwitchE name="switch-name">
           <SwitchEOption label="Option 1" value="1" />
@@ -100,9 +101,24 @@ describe('SwitchE', () => {
     it('should not render the label', () => {
       expect(wrapper.queryAllByTestId('switch-legend')).toHaveLength(0)
     })
+  })
 
-    it.skip('should not set the initial value', () => {
-      // TODO
+  describe('when the component is disabled', () => {
+    beforeEach(() => {
+      onChangeSpy = jest.fn()
+
+      wrapper = render(
+        <SwitchE name="switch-name" isDisabled onChange={onChangeSpy}>
+          <SwitchEOption label="Option 1" value="1" />
+          <SwitchEOption label="Option 2" value="2" />
+          <SwitchEOption label="Option 3" value="3" />
+        </SwitchE>
+      )
+    })
+
+    it('should not invoke the onChange handler when an option is clicked', () => {
+      wrapper.queryByText('Option 1').click()
+      expect(onChangeSpy).not.toHaveBeenCalled()
     })
   })
 })

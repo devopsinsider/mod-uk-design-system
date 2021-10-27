@@ -36,6 +36,10 @@ export interface SwitchProps extends ComponentWithClass, InputValidationProps {
    */
   size?: SwitchSizeType
   /**
+   * Toggles whether the component is disabled or not (preventing user interaction).
+   */
+  isDisabled?: boolean
+  /**
    * Collection of options to display within the Switch.
    */
   children:
@@ -49,6 +53,8 @@ export const SwitchE: React.FC<SwitchProps> = ({
   label,
   onChange,
   size = SWITCHE_SIZE.FORMS,
+  isDisabled,
+  isInvalid,
   children,
   ...rest
 }) => {
@@ -60,7 +66,13 @@ export const SwitchE: React.FC<SwitchProps> = ({
   }, [value])
 
   return (
-    <StyledSwitch $size={size} {...rest} data-testid="switch-wrapper">
+    <StyledSwitch
+      $size={size}
+      $isDisabled={isDisabled}
+      $isInvalid={isInvalid}
+      {...rest}
+      data-testid="switch-wrapper"
+    >
       {label && (
         <StyledLegend data-testid="switch-legend">{label}</StyledLegend>
       )}
@@ -73,10 +85,15 @@ export const SwitchE: React.FC<SwitchProps> = ({
             warnIfOverwriting(child.props, 'isActive', SwitchEOption.name)
             warnIfOverwriting(child.props, 'onChange', SwitchEOption.name)
 
+            if (isDisabled) {
+              warnIfOverwriting(child.props, 'isDisabled', SwitchEOption.name)
+            }
+
             return React.cloneElement(child, {
               ...child.props,
               name,
               id,
+              isDisabled: isDisabled || child.props.isDisabled,
               isActive: active === child.props.value,
               onChange: (e: React.FormEvent<HTMLInputElement>) => {
                 setActive(child.props.value)

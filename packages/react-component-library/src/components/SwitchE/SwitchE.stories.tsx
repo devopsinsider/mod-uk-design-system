@@ -19,15 +19,31 @@ export default {
 
 const Template: Story<SwitchProps> = (props) => (
   <SwitchE {...props}>
-    <SwitchEOption label="Option 1" value="1" />
-    <SwitchEOption label="Option 2" value="2" />
-    <SwitchEOption label="Option 3" value="3" />
+    <SwitchEOption label="Day" value="1" />
+    <SwitchEOption label="Week" value="2" />
+    <SwitchEOption label="Month" value="3" />
+    <SwitchEOption label="Year" value="4" />
   </SwitchE>
 )
 
 export const Default = Template.bind({})
 Default.args = {
   name: 'switch-default',
+}
+
+export const Disabled = Template.bind({})
+Disabled.storyName = 'Disabled'
+Disabled.args = {
+  name: 'switch-disabled',
+  value: '2',
+  isDisabled: true,
+}
+
+export const Invalid = Template.bind({})
+Invalid.storyName = 'Invalid'
+Invalid.args = {
+  name: 'switch-invalid',
+  isInvalid: true,
 }
 
 export const WithLegend = Template.bind({})
