@@ -1,12 +1,14 @@
 import styled from 'styled-components'
 import { selectors } from '@defencedigital/design-tokens'
 
+import { ComponentSizeType } from '../../components/Forms'
+
 const { color, fontSize } = selectors
 
 export interface StyledLabelProps {
   $hasContent: boolean
   $hasFocus: boolean
-  $isCondensed?: boolean
+  $size?: ComponentSizeType
 }
 
 export const StyledLabel = styled.label<StyledLabelProps>`

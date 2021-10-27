@@ -1,6 +1,8 @@
 import styled, { css } from 'styled-components'
 import { selectors } from '@defencedigital/design-tokens'
 
+import { COMPONENT_SIZE, ComponentSizeType } from '../../components/Forms'
+
 const { color } = selectors
 
 const DEFAULT_BORDER = css`
@@ -9,9 +11,9 @@ const DEFAULT_BORDER = css`
 
 export interface StyledOuterWrapperProps {
   $hasFocus?: boolean
-  $isCondensed?: boolean
   $isDisabled?: boolean
   $isInvalid?: boolean
+  $size?: ComponentSizeType
 }
 
 function getBoxShadowColor({ $hasFocus }: StyledOuterWrapperProps) {
@@ -66,9 +68,9 @@ function getBackgroundColor({ $isDisabled }: StyledOuterWrapperProps) {
   `
 }
 
-function getBorderRadius({ $isCondensed }: StyledOuterWrapperProps) {
+function getBorderRadius({ $size }: StyledOuterWrapperProps) {
   return css`
-    border-radius: ${$isCondensed ? '10px' : '15px'};
+    border-radius: ${$size === COMPONENT_SIZE.SMALL ? '10px' : '15px'};
   `
 }
 

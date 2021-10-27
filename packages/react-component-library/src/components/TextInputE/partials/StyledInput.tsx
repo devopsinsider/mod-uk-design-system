@@ -1,6 +1,8 @@
 import styled, { css } from 'styled-components'
 import { selectors } from '@defencedigital/design-tokens'
 
+import { COMPONENT_SIZE, ComponentSizeType } from '../../Forms'
+
 const { color, fontSize } = selectors
 
 function removeAutoFillBackground() {
@@ -18,7 +20,7 @@ function removeAutoFillBackground() {
 
 interface StyledInputProps {
   $hasLabel: boolean
-  $isCondensed?: boolean
+  $size?: ComponentSizeType
 }
 
 export const StyledInput = styled.input<StyledInputProps>`
@@ -29,8 +31,8 @@ export const StyledInput = styled.input<StyledInputProps>`
   border: 0;
   background: none;
 
-  padding: ${({ $hasLabel, $isCondensed }) => {
-    if ($isCondensed || !$hasLabel) {
+  padding: ${({ $hasLabel, $size }) => {
+    if ($size === 'small' || !$hasLabel) {
       return '6px 12px 6px 11px'
     }
 
@@ -42,10 +44,10 @@ export const StyledInput = styled.input<StyledInputProps>`
   ${removeAutoFillBackground()}
 
   color: ${color('neutral', '600')};
-  font-size: ${({ $isCondensed }) =>
-    $isCondensed ? fontSize('base') : fontSize('m')};
+  font-size: ${({ $size }) =>
+    $size === COMPONENT_SIZE.SMALL ? fontSize('base') : fontSize('m')};
 
-  height: ${({ $isCondensed }) => ($isCondensed ? '31px' : '44px')};
+  height: ${({ $size }) => ($size === COMPONENT_SIZE.SMALL ? '31px' : '44px')};
 
   &:focus {
     outline: 0;

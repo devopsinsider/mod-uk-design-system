@@ -1,13 +1,14 @@
 import styled, { css } from 'styled-components'
 
+import { COMPONENT_SIZE, ComponentSizeType } from '../../Forms'
 import { isIE11 } from '../../../helpers'
 import {
   StyledLabel as StyledLabelBase,
   StyledLabelProps,
 } from '../../../styled-components/partials/StyledLabel'
 
-function getYPosition($isCondensed: boolean) {
-  if ($isCondensed) {
+function getYPosition($size: ComponentSizeType) {
+  if ($size === COMPONENT_SIZE.SMALL) {
     return isIE11() ? '8px' : '6px'
   }
 
@@ -15,16 +16,16 @@ function getYPosition($isCondensed: boolean) {
 }
 
 export const StyledLabel = styled(StyledLabelBase)<StyledLabelProps>`
-  ${({ $isCondensed }) => css`
-    transform: translate(11px, ${getYPosition($isCondensed)}) scale(1);
+  ${({ $size }) => css`
+    transform: translate(11px, ${getYPosition($size)}) scale(1);
   `}
 
-  ${({ $hasContent, $hasFocus, $isCondensed }) => {
+  ${({ $hasContent, $hasFocus, $size }) => {
     if (!$hasContent && !$hasFocus) {
       return null
     }
 
-    if ($isCondensed) {
+    if ($size === 'small') {
       return css`
         display: none;
       `
