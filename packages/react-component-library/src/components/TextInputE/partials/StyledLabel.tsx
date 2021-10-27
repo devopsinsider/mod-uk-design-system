@@ -21,7 +21,7 @@ export const StyledLabel = styled(StyledLabelBase)<StyledLabelProps>`
 
   ${({ $hasContent, $hasFocus, $isCondensed }) => {
     if (!$hasContent && !$hasFocus) {
-      return {}
+      return null
     }
 
     if ($isCondensed) {
