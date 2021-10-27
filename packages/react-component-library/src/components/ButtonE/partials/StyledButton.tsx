@@ -34,12 +34,12 @@ export const StyledButton = styled.button<StyledButtonProps>`
   padding: 0 ${spacing('6')};
   font-size: ${fontSize('m')};
   font-weight: 400;
+  text-decoration: none;
   cursor: pointer;
   user-select: none;
   transition: all ${animation('default')};
   white-space: nowrap;
 
-  &,
   &:hover {
     text-decoration: none;
   }
