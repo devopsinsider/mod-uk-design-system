@@ -16,7 +16,7 @@ describe('NumberInputE', () => {
   let onChangeSpy: (event: any) => void
 
   function assertInputValue(expectedValue: string) {
-    it('should set the input value', () => {
+    it('sets the input value', () => {
       expect(wrapper.getByTestId('number-input-input')).toHaveValue(
         expectedValue
       )
@@ -34,7 +34,7 @@ describe('NumberInputE', () => {
     now: number
     text: string
   }) {
-    it('should set the `aria-value*` attribute', () => {
+    it('sets the `aria-value*` attribute', () => {
       const container = wrapper.getByTestId(
         'number-input-container'
       ) as HTMLDivElement
@@ -57,7 +57,7 @@ describe('NumberInputE', () => {
   }
 
   function assertOnChangeCall(expected: number, expectedNumberOfTimes = 1) {
-    it('should call the onChange callback with the new value', () => {
+    it('calls the onChange callback with the new value', () => {
       expect(onChangeSpy).toHaveBeenCalledTimes(expectedNumberOfTimes)
       expect(onChangeSpy).toHaveBeenCalledWith({
         target: {
@@ -79,14 +79,14 @@ describe('NumberInputE', () => {
       )
     })
 
-    it('should set the default `aria-label` attribute', () => {
+    it('sets the default `aria-label` attribute', () => {
       expect(wrapper.getByTestId('number-input-container')).toHaveAttribute(
         'aria-label',
         'Number input'
       )
     })
 
-    it('should apply the `aria-label` attribute to buttons', () => {
+    it('applies the `aria-label` attribute to buttons', () => {
       expect(wrapper.getByTestId('number-input-decrease')).toHaveAttribute(
         'aria-label',
         'Decrease the input value'
@@ -98,7 +98,7 @@ describe('NumberInputE', () => {
       )
     })
 
-    it('should apply the correct `role` attribute', () => {
+    it('applies the correct `role` attribute', () => {
       expect(wrapper.getByTestId('number-input-container')).toHaveAttribute(
         'role',
         'spinbutton'
@@ -107,19 +107,19 @@ describe('NumberInputE', () => {
 
     assertAriaValueAttributes({ min: null, max: null, now: 0, text: 'Not set' })
 
-    it('should not display a start adornment', () => {
+    it('does not display a start adornment', () => {
       expect(
         wrapper.queryAllByTestId('number-input-start-adornment')
       ).toHaveLength(0)
     })
 
-    it('should not display a label', () => {
+    it('does not display a label', () => {
       expect(wrapper.queryAllByTestId('number-input-label')).toHaveLength(0)
     })
 
     assertInputValue('')
 
-    it('should set the `aria-labelledby` attribute', () => {
+    it('does not set the `aria-labelledby` attribute', () => {
       const numberInputId = wrapper
         .getByTestId('number-input-container')
         .getAttribute('id')
@@ -131,13 +131,13 @@ describe('NumberInputE', () => {
       ).toEqual(numberInputId)
     })
 
-    it('should set the name attribute', () => {
+    it('sets the name attribute', () => {
       expect(
         wrapper.getByTestId('number-input-input').getAttribute('name')
       ).toEqual('number-input')
     })
 
-    it('should not display a footnote', () => {
+    it('does not display a footnote', () => {
       expect(wrapper.queryAllByTestId('number-input-footnote')).toHaveLength(0)
     })
 
@@ -226,7 +226,7 @@ describe('NumberInputE', () => {
       )
     })
 
-    it('should display the footnote', () => {
+    it('displays the footnote', () => {
       expect(wrapper.getByTestId('number-input-footnote').textContent).toEqual(
         'Footnote'
       )
@@ -244,14 +244,14 @@ describe('NumberInputE', () => {
       )
     })
 
-    it('should apple the `aria-label` attribute to the root element', () => {
+    it('sets the `aria-label` attribute to the root element', () => {
       expect(wrapper.getByTestId('number-input-container')).toHaveAttribute(
         'aria-label',
         'Label'
       )
     })
 
-    it('should display the footnote', () => {
+    it('displays the footnote', () => {
       expect(wrapper.getByTestId('number-input-label').textContent).toEqual(
         'Label'
       )
@@ -273,14 +273,14 @@ describe('NumberInputE', () => {
       )
     })
 
-    it('should apply the correct `aria-valuemin` attribute', () => {
+    it('sets the correct `aria-valuemin` attribute', () => {
       expect(wrapper.getByTestId('number-input-container')).toHaveAttribute(
         'aria-valuemin',
         '0'
       )
     })
 
-    it('should apply the correct `aria-valuemax` attribute', () => {
+    it('aplies the `aria-valuemax` attribute', () => {
       expect(wrapper.getByTestId('number-input-container')).toHaveAttribute(
         'aria-valuemax',
         '3'
@@ -402,7 +402,7 @@ describe('NumberInputE', () => {
       )
     })
 
-    it('should add the CSS modifier', () => {
+    it('sets the CSS modifier', () => {
       expect(wrapper.getByTestId('number-input-container').classList).toContain(
         'number-input__custom'
       )
@@ -421,13 +421,13 @@ describe('NumberInputE', () => {
       )
     })
 
-    it('should add the ID attribute', () => {
+    it('sets the `id` attribute', () => {
       expect(
         wrapper.getByTestId('number-input-input').getAttribute('id')
       ).toEqual('number-input-id')
     })
 
-    it('should associate the label with the field', () => {
+    it('associates the label with the field', () => {
       expect(
         wrapper.getByTestId('number-input-label').getAttribute('for')
       ).toEqual('number-input-id')
@@ -458,7 +458,7 @@ describe('NumberInputE', () => {
         wrapper.getByTestId('next-field').focus()
       })
 
-      it('should call the onBlur callback', () => {
+      it('calls the `onBlur` callback', () => {
         expect(onBlurSpy).toHaveBeenCalledTimes(1)
       })
     })
@@ -527,7 +527,7 @@ describe('NumberInputE', () => {
       wrapper.getByTestId('button').click()
     })
 
-    it('should update the value in the field', async () => {
+    it('updates the value in the field', async () => {
       await waitFor(() => {
         expect(wrapper.getByTestId('number-input-input')).toHaveValue('1')
       })
@@ -545,7 +545,7 @@ describe('NumberInputE', () => {
       )
     })
 
-    it('should spread arbitrary props', () => {
+    it('spreads arbitrary props', () => {
       expect(wrapper.getByTestId('number-input-input')).toHaveAttribute(
         'data-arbitrary',
         'arbitrary'
@@ -565,7 +565,7 @@ describe('NumberInputE', () => {
       )
     })
 
-    it('should display the label', () => {
+    it('displays the label', () => {
       expect(wrapper.getByTestId('number-input-label').textContent).toEqual(
         'Label'
       )
@@ -576,17 +576,17 @@ describe('NumberInputE', () => {
         wrapper.getByTestId('number-input-increase').click()
       })
 
-      it('should hide the label', () => {
+      it('hides the label', () => {
         expect(wrapper.getByTestId('number-input-label')).not.toBeVisible()
       })
     })
 
-    describe('when', () => {
+    describe('when focusing on the input', () => {
       beforeEach(() => {
         wrapper.getByTestId('number-input-input').focus()
       })
 
-      it('should hide the label', () => {
+      it('hides the label', () => {
         expect(wrapper.getByTestId('number-input-label')).not.toBeVisible()
       })
 
@@ -595,7 +595,7 @@ describe('NumberInputE', () => {
           wrapper.getByTestId('number-input-increase').focus()
         })
 
-        it('should display the label', () => {
+        it('displays the label', () => {
           expect(wrapper.getByTestId('number-input-label').textContent).toEqual(
             'Label'
           )

@@ -3,41 +3,40 @@ import capitalize from 'lodash/capitalize'
 import { IconAdd, IconRemove } from '@defencedigital/icon-library'
 
 import { NUMBER_INPUT_BUTTON_TYPE } from './constants'
-import { StyledButton } from './partials/StyledButton'
+import { StyledInlineButton } from './partials/StyledInlineButton'
 
 type ButtonType =
   | typeof NUMBER_INPUT_BUTTON_TYPE.DECREASE
   | typeof NUMBER_INPUT_BUTTON_TYPE.INCREASE
 
-interface ButtonProps {
+interface InlineButtonProps {
   isCondensed: boolean
   isDisabled: boolean
   onClick: (event: React.MouseEvent<HTMLButtonElement>) => void
   type: ButtonType
 }
 
-const svgLookup = {
+const iconLookup = {
   [NUMBER_INPUT_BUTTON_TYPE.DECREASE]: <IconRemove />,
   [NUMBER_INPUT_BUTTON_TYPE.INCREASE]: <IconAdd />,
 }
 
-export const Button: React.FC<ButtonProps> = ({
+export const InlineButton: React.FC<InlineButtonProps> = ({
   isCondensed,
   isDisabled,
   onClick,
   type,
 }) => (
-  <StyledButton
+  <StyledInlineButton
     $isCondensed={isCondensed}
-    $isDisabled={isDisabled}
     aria-label={`${capitalize(type)} the input value`}
     data-testid={`number-input-${type}`}
     type="button"
     disabled={isDisabled}
     onClick={onClick}
   >
-    {svgLookup[type]}
-  </StyledButton>
+    {iconLookup[type]}
+  </StyledInlineButton>
 )
 
-Button.displayName = 'Button'
+InlineButton.displayName = 'InlineButton'

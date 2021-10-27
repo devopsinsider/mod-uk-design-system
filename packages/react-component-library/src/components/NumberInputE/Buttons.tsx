@@ -1,8 +1,8 @@
 import React from 'react'
 
-import { Button } from './Button'
+import { InlineButton } from './InlineButton'
 import { NUMBER_INPUT_BUTTON_TYPE } from './constants'
-import { StyledButtons } from './partials/StyledButtons'
+import { StyledInlineButtons } from './partials/StyledInlineButtons'
 import { StyledDivider } from './partials/StyledDivider'
 
 export interface ButtonsProps {
@@ -37,21 +37,21 @@ export const Buttons: React.FC<ButtonsProps> = ({
   }
 
   return (
-    <StyledButtons $isDisabled={isDisabled}>
-      <Button
+    <StyledInlineButtons $isDisabled={isDisabled}>
+      <InlineButton
         isCondensed={isCondensed}
         isDisabled={isDisabled}
         onClick={onButtonClick(() => (value || 0) - step)}
         type={NUMBER_INPUT_BUTTON_TYPE.DECREASE}
       />
       <StyledDivider $isCondensed={isCondensed} />
-      <Button
+      <InlineButton
         isCondensed={isCondensed}
         isDisabled={isDisabled}
         onClick={onButtonClick(() => (value || 0) + step)}
         type={NUMBER_INPUT_BUTTON_TYPE.INCREASE}
       />
-    </StyledButtons>
+    </StyledInlineButtons>
   )
 }
 

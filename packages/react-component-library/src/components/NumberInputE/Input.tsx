@@ -22,7 +22,7 @@ export interface InputProps extends InputValidationProps {
 
 export const Input: React.FC<InputProps> = ({
   hasFocus,
-  isDisabled = false,
+  isDisabled,
   id,
   isCondensed,
   label,

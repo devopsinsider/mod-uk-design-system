@@ -10,8 +10,6 @@ import {
   NumberInputWithSuffixProps,
 } from './NumberInputE'
 
-const chromaticIgnore = { chromatic: { disable: true } }
-
 export default {
   component: NumberInputE,
   title: 'Number Input (Experimental)',
@@ -88,7 +86,6 @@ export const Suffix: Story<NumberInputWithSuffixProps> = (props) => (
 )
 
 Suffix.storyName = 'With suffix'
-Suffix.parameters = chromaticIgnore
 
 export const Error: Story<NumberInputProps> = (props) => (
   <NumberInputE {...props} isInvalid name="number-input-error" />

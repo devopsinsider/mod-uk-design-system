@@ -1,14 +1,13 @@
 import styled, { css } from 'styled-components'
 import { selectors } from '@defencedigital/design-tokens'
 
-export interface StyledButtonProps {
+export interface StyledInlineButtonProps {
   $isCondensed: boolean
-  $isDisabled: boolean
 }
 
 const { color } = selectors
 
-export const StyledButton = styled.button<StyledButtonProps>`
+export const StyledInlineButton = styled.button<StyledInlineButtonProps>`
   position: relative;
   display: flex;
   flex-direction: column;
@@ -54,13 +53,11 @@ export const StyledButton = styled.button<StyledButtonProps>`
       }
     `}
 
-  ${({ $isDisabled }) =>
-    $isDisabled &&
-    css`
-      color: ${color('neutral', '300')};
+  &:disabled {
+    color: ${color('neutral', '300')};
 
-      &:hover {
-        background-color: unset;
-      }
-    `}
+    &:hover {
+      background-color: unset;
+    }
+  }
 `
