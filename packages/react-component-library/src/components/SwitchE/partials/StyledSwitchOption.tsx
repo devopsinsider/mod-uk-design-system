@@ -1,13 +1,13 @@
 import styled, { css } from 'styled-components'
 import { selectors } from '@defencedigital/design-tokens'
 
-interface StyledOptionProps {
+interface StyledSwitchEOptionProps {
   $isActive?: boolean
 }
 
 const { spacing, color } = selectors
 
-export const StyledOption = styled.label<StyledOptionProps>`
+export const StyledSwitchOption = styled.label<StyledSwitchEOptionProps>`
   cursor: pointer;
   border-radius: 3px;
   display: inline-block;

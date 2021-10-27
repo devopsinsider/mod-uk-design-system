@@ -6,64 +6,52 @@ import { Field, Formik, Form } from 'formik'
 import { withFormik } from '../../enhancers/withFormik'
 import { Button } from '../Button'
 
-import { SwitchE, SwitchProps, SWITCH_SIZE } from '.'
+import { SwitchE, SwitchEOption, SwitchProps, SWITCHE_SIZE } from '.'
 
 export default {
   component: SwitchE,
-  title: 'SwitchE',
+  title: 'SwitchE (Experimental)',
+  subcomponents: { SwitchEOption },
   parameters: {
     actions: { argTypesRegex: '^on.*' },
   },
 } as Meta
 
-const options = [
-  { label: 'One', value: '1' },
-  { label: 'Two', value: '2' },
-  { label: 'Three', value: '3' },
-  { label: 'Four', value: '4' },
-]
+const Template: Story<SwitchProps> = (props) => (
+  <SwitchE {...props}>
+    <SwitchEOption label="Option 1" value="1" />
+    <SwitchEOption label="Option 2" value="2" />
+    <SwitchEOption label="Option 3" value="3" />
+  </SwitchE>
+)
 
-export const Default: Story<SwitchProps> = (props) => <SwitchE {...props} />
-
+export const Default = Template.bind({})
 Default.args = {
   name: 'switch-default',
-  options,
 }
 
-export const WithLegend: Story<SwitchProps> = (props) => (
-  <SwitchE
-    {...props}
-    name="switch-legend"
-    label="Example legend"
-    options={options}
-  />
-)
-
+export const WithLegend = Template.bind({})
 WithLegend.storyName = 'With legend'
+WithLegend.args = {
+  name: 'switch-legend',
+  label: 'Example legend',
+}
 
-export const SelectedValue: Story<SwitchProps> = (props) => (
-  <SwitchE
-    {...props}
-    name="switch-selected-value"
-    options={options}
-    value="2"
-  />
-)
-
+export const SelectedValue = Template.bind({})
 SelectedValue.storyName = 'With value selected'
+SelectedValue.args = {
+  name: 'switch-selected-value',
+  value: '2',
+}
 
-export const Small: Story<SwitchProps> = (props) => (
-  <SwitchE
-    {...props}
-    name="switch-small"
-    options={options}
-    size={SWITCH_SIZE.SMALL}
-  />
-)
-
+export const Small = Template.bind({})
 Small.storyName = 'Small'
+Small.args = {
+  name: 'switch-small',
+  size: SWITCHE_SIZE.SMALL,
+}
 
-export const WithFormik: Story<SwitchProps> = (props) => {
+export const WithFormik: Story<SwitchProps> = () => {
   interface Data {
     'switch-formik': string
   }
@@ -72,7 +60,7 @@ export const WithFormik: Story<SwitchProps> = (props) => {
     'switch-formik': '3',
   }
 
-  const FormikSwitch = withFormik(SwitchE)
+  const FormikSwitch = withFormik(Template)
 
   return (
     <Formik
@@ -84,13 +72,10 @@ export const WithFormik: Story<SwitchProps> = (props) => {
             <Field
               name="switch-formik"
               component={FormikSwitch}
-              options={options}
               onChange={(event: React.FormEvent<HTMLInputElement>) => {
                 setFieldValue('example-switch-field', event.currentTarget.value)
-                console.log(event)
               }}
             />
-            <br />
             <Button type="submit">Submit</Button>
           </Form>
         )

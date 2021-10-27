@@ -2,7 +2,7 @@ import styled from 'styled-components'
 import { selectors } from '@defencedigital/design-tokens'
 
 import { SwitchSizeType } from '../SwitchE'
-import { StyledOption } from './StyledOption'
+import { StyledSwitchOption } from './StyledSwitchOption'
 
 interface StyledSwitchProps {
   $size?: SwitchSizeType
@@ -22,7 +22,7 @@ export const StyledSwitch = styled.fieldset<StyledSwitchProps>`
       return `
       font-size: ${fontSize('s')};
 
-      ${StyledOption}::before {
+      ${StyledSwitchOption}::before {
         padding: ${spacing('8')} ${spacing('11')};
       }
       `

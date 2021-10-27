@@ -1,8 +1,8 @@
-const SWITCH_SIZE = {
+const SWITCHE_SIZE = {
   FORMS: 'forms',
   SMALL: 'small',
 } as const
 
 export {
-  SWITCH_SIZE,
+  SWITCHE_SIZE,
 }
