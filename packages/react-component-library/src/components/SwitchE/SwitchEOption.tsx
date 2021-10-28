@@ -4,7 +4,7 @@ import { ComponentWithClass } from '../../common/ComponentWithClass'
 import { StyledSwitchOption } from './partials/StyledSwitchOption'
 import { SwitchInput } from './partials/SwitchInput'
 
-export interface SwitchOptionProps extends ComponentWithClass {
+export interface SwitchEOptionProps extends ComponentWithClass {
   /**
    * Descriptive label associated with the selectable option.
    */
@@ -39,7 +39,7 @@ export interface SwitchOptionProps extends ComponentWithClass {
   onChange?: (event: React.FormEvent<HTMLInputElement>) => void
 }
 
-export const SwitchEOption: React.FC<SwitchOptionProps> = ({
+export const SwitchEOption: React.FC<SwitchEOptionProps> = ({
   label,
   value,
   isDisabled,

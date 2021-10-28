@@ -1,13 +1,13 @@
 import styled, { css } from 'styled-components'
 import { selectors } from '@defencedigital/design-tokens'
 
-import { SwitchSizeType } from '../SwitchE'
+import { SwitchESizeType } from '../SwitchE'
 import { StyledContainer } from './StyledContainer'
 import { StyledSwitchOption } from './StyledSwitchOption'
 import { StyledLegend } from './StyledLegend'
 
 interface StyledSwitchProps {
-  $size?: SwitchSizeType
+  $size?: SwitchESizeType
   $isDisabled?: boolean
   $isInvalid?: boolean
 }

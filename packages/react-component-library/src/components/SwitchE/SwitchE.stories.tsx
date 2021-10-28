@@ -6,7 +6,7 @@ import { Field, Formik, Form } from 'formik'
 import { withFormik } from '../../enhancers/withFormik'
 import { Button } from '../Button'
 
-import { SwitchE, SwitchEOption, SwitchProps, SWITCHE_SIZE } from '.'
+import { SwitchE, SwitchEOption, SwitchEProps, SWITCHE_SIZE } from '.'
 
 export default {
   component: SwitchE,
@@ -17,7 +17,7 @@ export default {
   },
 } as Meta
 
-const Template: Story<SwitchProps> = (props) => (
+const Template: Story<SwitchEProps> = (props) => (
   <SwitchE {...props}>
     <SwitchEOption label="Day" value="1" />
     <SwitchEOption label="Week" value="2" />
@@ -67,7 +67,7 @@ Small.args = {
   size: SWITCHE_SIZE.SMALL,
 }
 
-export const WithFormik: Story<SwitchProps> = () => {
+export const WithFormik: Story<SwitchEProps> = () => {
   interface Data {
     'switch-formik': string
   }
