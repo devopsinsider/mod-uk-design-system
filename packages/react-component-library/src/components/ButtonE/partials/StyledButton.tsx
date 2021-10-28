@@ -3,14 +3,14 @@ import { selectors } from '@defencedigital/design-tokens'
 import { rgba } from 'polished'
 
 import {
-  BUTTON_E_VARIANT,
-  BUTTON_E_SIZE,
   BUTTON_E_ICON_POSITION,
+  BUTTON_E_SIZE,
+  BUTTON_E_VARIANT,
 } from '../constants'
 import {
-  ButtonEVariantType,
-  ButtonESizeType,
   ButtonEIconPositionType,
+  ButtonESizeType,
+  ButtonEVariantType,
 } from '../ButtonE'
 
 interface StyledButtonProps {
@@ -58,6 +58,7 @@ export const StyledButton = styled.button<StyledButtonProps>`
       border: 1px solid ${color('action', '600')};
       color: ${color('neutral', 'white')};
       background-color: ${color('action', '600')};
+      box-shadow: 0 1px 3px ${rgba(0, 0, 0, 0.1)};
 
       &:focus,
       &:hover {
@@ -75,7 +76,36 @@ export const StyledButton = styled.button<StyledButtonProps>`
       color: ${color('neutral', '500')};
       background-color: ${color('neutral', 'white')};
       border: 1px solid ${color('neutral', '200')};
+      box-shadow: 0 1px 3px ${rgba(0, 0, 0, 0.1)};
+    `}
 
+  ${({ $variant }) =>
+    $variant === BUTTON_E_VARIANT.TERTIARY &&
+    css`
+      background-color: transparent;
+      background-image: none;
+      border: 1px solid transparent;
+      color: ${color('neutral', '500')};
+      text-decoration: underline;
+
+      &:disabled {
+        text-decoration: underline transparent;
+      }
+
+      &:active,
+      &:focus,
+      &:hover {
+        color: ${color('neutral', '500')};
+        border: 1px solid ${color('neutral', '200')};
+        text-decoration: underline transparent;
+      }
+    `}
+
+
+  ${({ $variant }) =>
+    ($variant === BUTTON_E_VARIANT.TERTIARY ||
+      $variant === BUTTON_E_VARIANT.SECONDARY) &&
+    css`
       &:focus,
       &:hover {
         background-color: ${color('neutral', 'white')};
@@ -88,10 +118,9 @@ export const StyledButton = styled.button<StyledButtonProps>`
 
   ${({ $variant }) =>
     ($variant === BUTTON_E_VARIANT.PRIMARY ||
-      $variant === BUTTON_E_VARIANT.SECONDARY) &&
+      $variant === BUTTON_E_VARIANT.SECONDARY ||
+      $variant === BUTTON_E_VARIANT.TERTIARY) &&
     css`
-      box-shadow: 0 1px 3px ${rgba(0, 0, 0, 0.1)};
-
       &:focus,
       &:hover {
         box-shadow: 0 1px 3px ${rgba(0, 0, 0, 0.1)},
@@ -113,22 +142,6 @@ export const StyledButton = styled.button<StyledButtonProps>`
           color: ${color('neutral', '300')};
           cursor: not-allowed;
         }
-      }
-    `}
-
-  ${({ $variant }) =>
-    $variant === BUTTON_E_VARIANT.TERTIARY &&
-    css`
-      background-color: transparent;
-      background-image: none;
-      border: 1px solid transparent;
-      color: ${color('neutral', '500')};
-      text-decoration: underline;
-
-      &:focus,
-      &:hover {
-        color: ${color('action', '600')};
-        text-decoration: underline;
       }
     `}
 

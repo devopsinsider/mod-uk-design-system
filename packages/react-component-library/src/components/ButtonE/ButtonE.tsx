@@ -2,9 +2,9 @@ import { IconLoader } from '@defencedigital/icon-library'
 import React, { FormEvent } from 'react'
 
 import {
+  BUTTON_E_ICON_POSITION,
   BUTTON_E_SIZE,
   BUTTON_E_VARIANT,
-  BUTTON_E_ICON_POSITION,
 } from './constants'
 import { ComponentWithClass } from '../../common/ComponentWithClass'
 import { StyledButton } from './partials/StyledButton'
@@ -32,6 +32,17 @@ interface ButtonEBaseProps extends Omit<ComponentWithClass, 'children'> {
    */
   iconPosition?: ButtonEIconPositionType
   /**
+   * Toggles whether the component is disabled or not (preventing user
+   * interaction).
+   */
+  isDisabled?: boolean
+  /**
+   * Whether an operation is in progress and the button temporarily can't be
+   * used. If set, the button will be disabled and a loading icon displayed in
+   * place of the button text.
+   */
+  isLoading?: boolean
+  /**
    * Optional handler called when the component is clicked.
    */
   onClick?: (event: FormEvent<HTMLButtonElement>) => void
@@ -43,33 +54,13 @@ interface ButtonEBaseProps extends Omit<ComponentWithClass, 'children'> {
    * HTML type of the component (forms should use the `submit` type).
    */
   type?: 'button' | 'submit'
-}
-
-export interface ButtonEDisableableWithTextProps extends ButtonEBaseProps {
-  /**
-   * Toggles whether the component is disabled or not (preventing user
-   * interaction).
-   *
-   * (Note that this flag isn't supported for tertiary buttons as tertiary
-   * buttons don't have a disabled state.)
-   */
-  isDisabled?: boolean
-  /**
-   * Whether an operation is in progress and the button temporarily can't be
-   * used. If set, the button will be disabled and a loading icon displayed in
-   * place of the button text.
-   *
-   * (Note that this flag isn't supported for tertiary buttons as tertiary
-   * buttons don't have a disabled state.)
-   */
-  isLoading?: boolean
   /**
    * Type of component to display (style varies accordingly).
    */
-  variant?:
-    | typeof BUTTON_E_VARIANT.PRIMARY
-    | typeof BUTTON_E_VARIANT.SECONDARY
-    | typeof BUTTON_E_VARIANT.DANGER
+  variant?: ButtonEVariantType
+}
+
+export interface ButtonEWithTextProps extends ButtonEBaseProps {
   /**
    * Text to display within the component.
    */
@@ -85,41 +76,13 @@ export interface ButtonEDisableableWithTextProps extends ButtonEBaseProps {
   title?: string
 }
 
-export interface ButtonEDisableableIconOnlyProps extends ButtonEBaseProps {
-  isDisabled?: boolean
-  isLoading?: boolean
-  variant?:
-    | typeof BUTTON_E_VARIANT.PRIMARY
-    | typeof BUTTON_E_VARIANT.SECONDARY
-    | typeof BUTTON_E_VARIANT.DANGER
+export interface ButtonEWithIconOnlyProps extends ButtonEBaseProps {
   children?: never
   icon: React.ReactNode
   title: string
 }
 
-export interface ButtonENonDisableableWithTextProps extends ButtonEBaseProps {
-  isDisabled?: never
-  isLoading?: never
-  variant: typeof BUTTON_E_VARIANT.TERTIARY
-  children: string
-  icon?: React.ReactNode
-  title?: string
-}
-
-export interface ButtonENonDisableableIconOnlyProps extends ButtonEBaseProps {
-  isDisabled?: never
-  isLoading?: never
-  variant: typeof BUTTON_E_VARIANT.TERTIARY
-  children?: never
-  icon: React.ReactNode
-  title: string
-}
-
-export type ButtonEProps =
-  | ButtonEDisableableWithTextProps
-  | ButtonEDisableableIconOnlyProps
-  | ButtonENonDisableableWithTextProps
-  | ButtonENonDisableableIconOnlyProps
+export type ButtonEProps = ButtonEWithTextProps | ButtonEWithIconOnlyProps
 
 export const ButtonE: React.FC<ButtonEProps> = ({
   children,
