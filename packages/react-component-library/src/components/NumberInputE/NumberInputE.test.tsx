@@ -311,7 +311,7 @@ describe('NumberInputE', () => {
         increase.click()
       })
 
-      assertInputValue('3')
+      assertInputValue('4')
 
       describe('and the decrease button is clicked four times', () => {
         beforeEach(() => {
@@ -492,7 +492,7 @@ describe('NumberInputE', () => {
     beforeEach(() => {
       const props = {
         ...defaultProps,
-        prefix: '&pound;',
+        prefix: String.fromCharCode(163),
         value: 1000,
       }
 
