@@ -5,6 +5,7 @@ import { SwitchESizeType } from '../SwitchE'
 import { StyledContainer } from './StyledContainer'
 import { StyledSwitchOption } from './StyledSwitchOption'
 import { StyledLegend } from './StyledLegend'
+import { SWITCHE_SIZE } from '../constants'
 
 interface StyledSwitchProps {
   $size?: SwitchESizeType
@@ -22,7 +23,7 @@ export const StyledSwitch = styled.fieldset<StyledSwitchProps>`
   font-size: ${fontSize('m')};
 
   ${({ $size }) =>
-    $size === 'small' &&
+    $size === SWITCHE_SIZE.SMALL &&
     css`
       font-size: ${fontSize('s')};
 
