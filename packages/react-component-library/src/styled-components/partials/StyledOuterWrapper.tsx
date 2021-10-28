@@ -5,9 +5,20 @@ import { COMPONENT_SIZE, ComponentSizeType } from '../../components/Forms'
 
 const { color } = selectors
 
-const DEFAULT_BORDER = css`
-  border: 1px solid ${color('neutral', '200')};
-`
+const BORDER_RADIUS = {
+  [COMPONENT_SIZE.SMALL]: '10px',
+  [COMPONENT_SIZE.FORMS]: '15px',
+}
+
+const BORDER_WIDTH = {
+  [COMPONENT_SIZE.SMALL]: '2px',
+  [COMPONENT_SIZE.FORMS]: '3px',
+}
+
+const MARGIN = {
+  [COMPONENT_SIZE.SMALL]: '-1px',
+  [COMPONENT_SIZE.FORMS]: '-2px',
+}
 
 export interface StyledOuterWrapperProps {
   $hasFocus?: boolean
@@ -16,74 +27,42 @@ export interface StyledOuterWrapperProps {
   $size?: ComponentSizeType
 }
 
-function getBoxShadowColor({ $hasFocus }: StyledOuterWrapperProps) {
-  if ($hasFocus) {
-    return color('action', '100')
-  }
-
-  return 'transparent'
-}
-
-function getBorder({
-  $hasFocus,
-  $isDisabled,
-  $isInvalid,
-}: StyledOuterWrapperProps) {
-  if ($hasFocus) {
-    return css`
-      border: 3px solid ${color('action', '500')};
-    `
-  }
-
-  if ($isDisabled) {
-    return css`
-      border: 1px solid transparent;
-    `
-  }
-
-  if ($isInvalid) {
-    return css`
-      border: 3px solid ${color('danger', '800')};
-    `
-  }
-
-  return null
-}
-
-function getMargin({ $hasFocus, $isInvalid }: StyledOuterWrapperProps) {
-  if ($hasFocus || $isInvalid) {
-    return css`
-      margin: -2px;
-    `
-  }
-
-  return null
-}
-
-function getBackgroundColor({ $isDisabled }: StyledOuterWrapperProps) {
-  return css`
-    background-color: ${$isDisabled
-      ? color('neutral', '000')
-      : color('neutral', 'white')};
-  `
-}
-
-function getBorderRadius({ $size }: StyledOuterWrapperProps) {
-  return css`
-    border-radius: ${$size === COMPONENT_SIZE.SMALL ? '10px' : '15px'};
-  `
-}
-
 export const StyledOuterWrapper = styled.div<StyledOuterWrapperProps>`
-  ${(props) => {
-    return css`
-      ${getBackgroundColor(props)};
-      ${getBorder(props) || DEFAULT_BORDER};
-      ${getBorderRadius(props)};
-      ${getMargin(props)};
-      box-shadow: 0 0 0 3px ${getBoxShadowColor(props)};
+  ${({ $hasFocus, $isDisabled, $isInvalid, $size }) => {
+    const defaults = css`
+      background-color: ${color('neutral', 'white')};
+      border: 1px solid ${color('neutral', '200')};
+      border-radius: ${BORDER_RADIUS[$size]};
+      box-shadow: 0 0 0 ${BORDER_WIDTH[$size]} transparent;
       transition: border-color 350ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
         box-shadow 350ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
     `
+
+    if ($hasFocus) {
+      return css`
+        ${defaults};
+        border: ${BORDER_WIDTH[$size]} solid ${color('action', '500')};
+        box-shadow: 0 0 0 ${BORDER_WIDTH[$size]} color('action', '100');
+        margin: ${MARGIN[$size]};
+      `
+    }
+
+    if ($isDisabled) {
+      return css`
+        ${defaults};
+        background-color: ${color('neutral', '000')};
+        border: 1px solid transparent;
+      `
+    }
+
+    if ($isInvalid) {
+      return css`
+        ${defaults};
+        border: ${BORDER_WIDTH[$size]} solid ${color('danger', '800')};
+        margin: ${MARGIN[$size]};
+      `
+    }
+
+    return defaults
   }}
 `
