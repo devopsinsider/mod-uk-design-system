@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 import { selectors } from '@defencedigital/design-tokens'
 
 const { color } = selectors
@@ -13,7 +13,9 @@ export const StyledInlineButtons = styled.div<StyledInlineButtonsProps>`
   justify-content: center;
   text-align: center;
 
-  &:disabled {
-    border-left: 1px solid ${color('neutral', '200')};
-  }
+  ${({ $isDisabled }) =>
+    !$isDisabled &&
+    css`
+      border-left: 1px solid ${color('neutral', '200')};
+    `}
 `
