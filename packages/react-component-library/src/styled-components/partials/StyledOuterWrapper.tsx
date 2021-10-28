@@ -28,7 +28,7 @@ export interface StyledOuterWrapperProps {
 }
 
 export const StyledOuterWrapper = styled.div<StyledOuterWrapperProps>`
-  ${({ $hasFocus, $isDisabled, $isInvalid, $size }) => {
+  ${({ $hasFocus, $isDisabled, $isInvalid, $size = COMPONENT_SIZE.FORMS }) => {
     const defaults = css`
       background-color: ${color('neutral', 'white')};
       border: 1px solid ${color('neutral', '200')};
