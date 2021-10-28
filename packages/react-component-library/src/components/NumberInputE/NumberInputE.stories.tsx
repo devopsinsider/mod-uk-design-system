@@ -3,7 +3,7 @@ import { Story, Meta } from '@storybook/react/types-6-0'
 import { IconBrightnessHigh } from '@defencedigital/icon-library'
 
 import { COMPONENT_SIZE } from '../Forms'
-import { NumberInputE, NumberInputProps } from './NumberInputE'
+import { NumberInputE, NumberInputEProps } from './NumberInputE'
 
 export default {
   component: NumberInputE,
@@ -13,7 +13,7 @@ export default {
   },
 } as Meta
 
-const Template: Story<NumberInputProps> = (args) => <NumberInputE {...args} />
+const Template: Story<NumberInputEProps> = (args) => <NumberInputE {...args} />
 
 export const Default = Template.bind({})
 
