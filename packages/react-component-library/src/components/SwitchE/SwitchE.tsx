@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { v4 as uuidv4 } from 'uuid'
 
-import { warnIfOverwriting } from '../../helpers'
+import { warnIfOverwriting, getKey } from '../../helpers'
 import { SWITCHE_SIZE, SwitchEOption } from '.'
 import { ComponentWithClass } from '../../common/ComponentWithClass'
 import { InputValidationProps } from '../../common/InputValidationProps'
@@ -99,6 +99,7 @@ export const SwitchE: React.FC<SwitchProps> = ({
                 setActive(child.props.value)
                 onChange(e)
               },
+              key: getKey('switch-option', child.props.label),
             })
           }
         )}

@@ -3,7 +3,6 @@ import React from 'react'
 import { ComponentWithClass } from '../../common/ComponentWithClass'
 import { StyledSwitchOption } from './partials/StyledSwitchOption'
 import { SwitchInput } from './partials/SwitchInput'
-import { getKey } from '../../helpers'
 
 export interface SwitchOptionProps extends ComponentWithClass {
   /**
@@ -51,7 +50,6 @@ export const SwitchEOption: React.FC<SwitchOptionProps> = ({
 }) => {
   return (
     <StyledSwitchOption
-      key={getKey('switch-option', label)}
       htmlFor={`${id}-${label}`}
       $isActive={isActive}
       $isDisabled={isDisabled}
