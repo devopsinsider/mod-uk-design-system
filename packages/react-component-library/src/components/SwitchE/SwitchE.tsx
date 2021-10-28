@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useMemo } from 'react'
 import { v4 as uuidv4 } from 'uuid'
 
 import { warnIfOverwriting, getKey } from '../../helpers'
@@ -59,7 +59,7 @@ export const SwitchE: React.FC<SwitchProps> = ({
   ...rest
 }) => {
   const [active, setActive] = useState<string | undefined>()
-  const id = uuidv4()
+  const id = useMemo(() => uuidv4(), [])
 
   useEffect(() => {
     setActive(value)
