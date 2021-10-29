@@ -39,7 +39,7 @@ export const Input: React.FC<InputProps> = ({
         <StyledLabel
           $hasContent={!isNil(value)}
           $hasFocus={hasFocus}
-          $size={size as 'small' | 'forms'}
+          $size={size}
           htmlFor={id}
           data-testid="number-input-label"
         >
