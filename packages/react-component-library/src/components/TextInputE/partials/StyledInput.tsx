@@ -33,7 +33,7 @@ export const StyledInput = styled.input<StyledInputProps>`
 
   padding: ${({ $hasLabel, $size }) => {
     if ($size === COMPONENT_SIZE.SMALL || !$hasLabel) {
-      return '6px 12px 6px 11px'
+      return '6px 12px 7px 11px'
     }
 
     return '22px 12px 6px 11px'

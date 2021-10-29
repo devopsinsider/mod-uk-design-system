@@ -42,7 +42,7 @@ export const StyledOuterWrapper = styled.div<StyledOuterWrapperProps>`
       return css`
         ${defaults};
         border: ${BORDER_WIDTH[$size]} solid ${color('action', '500')};
-        box-shadow: 0 0 0 ${BORDER_WIDTH[$size]} color('action', '100');
+        box-shadow: 0 0 0 ${BORDER_WIDTH[$size]} ${color('action', '100')};
         margin: ${MARGIN[$size]};
       `
     }
