@@ -32,7 +32,7 @@ export const StyledInput = styled.input<StyledInputProps>`
   background: none;
 
   padding: ${({ $hasLabel, $size }) => {
-    if ($size === 'small' || !$hasLabel) {
+    if ($size === COMPONENT_SIZE.SMALL || !$hasLabel) {
       return '6px 12px 6px 11px'
     }
 

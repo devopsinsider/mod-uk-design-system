@@ -25,7 +25,7 @@ export const StyledLabel = styled(StyledLabelBase)<StyledLabelProps>`
       return null
     }
 
-    if ($size === 'small') {
+    if ($size === COMPONENT_SIZE.SMALL) {
       return css`
         display: none;
       `
