@@ -37,7 +37,7 @@ export const StyledButton = styled.button<StyledButtonProps>`
   text-decoration: none;
   cursor: pointer;
   user-select: none;
-  transition: all ${animation('default')};
+  transition: all 75ms cubic-bezier(0, 1.19, 0.82, 0.9);
   white-space: nowrap;
 
   &:hover {
